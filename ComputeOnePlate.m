@@ -9,10 +9,17 @@ TRall=[];
 for ii=1:length(datafiles)
     
     if ischar(datafiles{ii})
-        T=readqPCRdata(datafiles{ii});
+        T=readSOPdata(datafiles{ii});
     else
         T=datafiles{ii};
     end
+    
+    tmp = length(T);
+    
+    if tmp < 96
+        T((tmp+1):96)=NaN;
+    end
+    
     %check the size
     if length(T) ~= 96
         error('expected data from a 96 well plate');

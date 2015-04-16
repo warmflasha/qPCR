@@ -3,14 +3,8 @@ function h=plotqPCR(fc,err,genenames,samplenames)
 h=bar(fc); hold on;
 
 if size(fc,1) > 1
-    for ii=1:size(fc,2)
-        xdat =get(get(h(ii),'children'), 'xdata');
-        xdat = mean(xdat([1 3],:));
-        errorbar(xdat,fc(:,ii),err(:,ii),'k.');
-        if ii==2
-            xtickplace=xdat;
-        end
-    end
+    xdat = h(1).XData;
+    xtickplace = xdat;
     set(gca,'Xtick',xtickplace);
     set(gca,'Xticklabel',genenames)
     if exist('samplenames','var')
@@ -18,10 +12,10 @@ if size(fc,1) > 1
     end;
     
 else
-    xdat =get(get(h,'children'), 'xdata');
-    xdat = mean(xdat([1 3],:));
-    errorbar(xdat,fc,err,'k.');
-    xtickplace=xdat;
+%     xdat =get(get(h,'children'), 'xdata');
+%     xdat = mean(xdat([1 3],:));
+%     errorbar(xdat,fc,err,'k.');
+%     xtickplace=xdat;
     if exist('samplenames','var')
         set(gca,'Xtick',xtickplace);
         set(gca,'Xticklabel',samplenames);
