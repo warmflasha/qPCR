@@ -1,34 +1,30 @@
-function dat = readSOPData2(filename)
-% read data from stepOnePlus machine. 
-% must resave as .csv. Uses default output settings
-
+function dat = readSOPdata2(filename)
 
 fid = fopen(filename,'r');
 
-curr_line = fgetl(fid);
+tline = fgetl(fid);
 
+firstlinefound = 0;
 q = 1;
-%find the results section
-while length(curr_line) < 9 || ~strcmpi(curr_line(1:9),'[Results]')
-    curr_line = fgetl(fid);
-    q = q + 1;
-end
-
-%get the column header line
-curr_line = fgetl(fid);
-headers = strsplit(curr_line,',');
-ind = find(~cellfun(@isempty,strfind(headers,'RQ Max')))+1;
-
-q = 1;
-curr_line = fgetl(fid);
-while length(curr_line) > 50
-    curr_line = strrep(curr_line,',',' ,');
-    curr_dat = strsplit(curr_line,',');
-    if ~(curr_dat{ind}(1)=='U') %undetermined
-        dat(q) = str2num(curr_dat{ind});
+while(ischar(tline))
+    if firstlinefound == 0
+         if strfind(tline,'Sample')
+             firstlinefound = 1;
+             splitline = strsplit(tline,',');
+             ind = find(~cellfun(@isempty,strfind(splitline,'C_')),1,'first');
+         end
     else
-        dat(q) = NaN;
+        splitline = strsplit(tline,',');
+        num = str2num(splitline{ind});
+        if isnumeric(num) && ~isempty(num)
+        dat(q) = num;
+        else
+            dat(q) = NaN;
+        end
+        q = q + 1;
     end
-    curr_line = fgetl(fid);
-    q = q + 1;
+    tline = fgetl(fid);
+    tline = strrep(tline,',',', ');
+
 end
+     

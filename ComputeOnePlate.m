@@ -13,7 +13,7 @@ TRall=[];
 for ii=1:length(datafiles)
     
     if ischar(datafiles{ii})
-        T=readSOPData2(datafiles{ii});
+        T=readSOPdata2(datafiles{ii});
     else
         T=datafiles{ii};
     end
@@ -56,7 +56,7 @@ end
 
 %compute fold changes and errors
 for ii=1:ngenes
-    [fc(ii,:) err(ii,:)]=compFcAndErr(gdata{ii},gdata{normgene},normcond);
+    [fc(ii,:), err(ii,:)]=compFcAndErr(gdata{ii},gdata{normgene},normcond);
 end
 
 
