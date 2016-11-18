@@ -6,8 +6,7 @@ function [fc, err]=ComputeOnePlate(datafiles,genenumbers,normgene,normcond,Brigi
 %read in the data file, should contain 96 numbers
 
 if ~exist('Brigitte','var')
-    Brigitte = false;
-end
+    brigitte = 
 
 TRall=[];
 for ii=1:length(datafiles)

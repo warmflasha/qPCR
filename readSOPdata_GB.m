@@ -4,7 +4,7 @@ fid = fopen(filename);
 ts = textscan(fid,'%s\t');
 ind = strfind(ts{1},'Threshold');
 ind = find(~cellfun(@isempty,ind));
-ts{1}(1:ind)=[];
+ts{1}(1:ind(1))=[];
 
 nreaction = length(ts{1})/5;
 
