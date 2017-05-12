@@ -1,4 +1,4 @@
-function dat = readSOPdata2(filename)
+function dat = readSOPData2(filename)
 
 fid = fopen(filename,'r');
 
@@ -25,6 +25,5 @@ while(ischar(tline))
     end
     tline = fgetl(fid);
     tline = strrep(tline,',',', ');
-
 end
      

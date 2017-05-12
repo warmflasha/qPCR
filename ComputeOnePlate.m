@@ -13,7 +13,7 @@ TRall=[];
 for ii=1:length(datafiles)
     
     if ischar(datafiles{ii})
-        T=readSOPdata2(datafiles{ii});
+        T=readSOPData2(datafiles{ii});
     else
         T=datafiles{ii};
     end
@@ -33,7 +33,7 @@ for ii=1:length(datafiles)
     
     if Brigitte
         TRtmp=reshape(T,12,8)';
-        TRtmp=[TRtmp(1:3,:) TRtmp(5:7,:)];
+        TRtmp=[TRtmp(1:3,:) TRtmp(4:6,:) NaN(3,8)];
     else
         TRtmp=reshape(T,3,32);
     end
