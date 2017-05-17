@@ -42,7 +42,7 @@ end
 ngenes=length(genenumbers);
 
 %replace single NaN by mean of others
-for ii = 1:32
+for ii = 1:size(TRall,2)
     inan = isnan(TRall(:,ii));
     if sum(inan) == 1
         TRall(inan,ii) = mean(TRall(~inan,ii));
