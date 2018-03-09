@@ -1,4 +1,4 @@
-function [fc, err]=ComputeOnePlate(datafiles,genenumbers,normgene,normcond,Brigitte)
+function [fc, err]=ComputeOnePlate(datafiles,genenumbers,normgene,normcond,delimiter,Brigitte)
 %[fc err]=ComputeOnePlate(datafile,genenumbers,normgene,genenames,condnames)
 %----------------------------------------------------------------
 %Function to read in one plate worth of qPCR data and quantify
@@ -9,11 +9,15 @@ if ~exist('Brigitte','var')
     Brigitte = false;
 end
 
+if ~exist('delimiter','var')
+    delimiter = ',';
+end
+
 TRall=[];
 for ii=1:length(datafiles)
     
     if ischar(datafiles{ii})
-        T=readSOPData2(datafiles{ii});
+        T=readSOPData2(datafiles{ii},delimiter);
     else
         T=datafiles{ii};
     end
