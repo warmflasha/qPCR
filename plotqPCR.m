@@ -6,16 +6,20 @@ if size(fc,1) > 1
     xdat = h(1).XData;
     xtickplace = xdat;
     set(gca,'Xtick',xtickplace);
-    set(gca,'Xticklabel',genenames)
+    if exist('genenames','var')
+        set(gca,'Xticklabel',genenames)
+    end
     if exist('samplenames','var')
         legend(samplenames,'FontSize',16,'Location','NorthWest');
-    end;
+    end
+    
+    for ii = 1:size(fc,2)
+        xdat = h(ii).XData + h(ii).XOffset;
+        errorbar(xdat,fc(:,ii),err(:,ii),'kx','LineWidth',1.5);
+    end
     
 else
-%     xdat =get(get(h,'children'), 'xdata');
-%     xdat = mean(xdat([1 3],:));
-%     errorbar(xdat,fc,err,'k.');
-%     xtickplace=xdat;
+    
     if exist('samplenames','var')
         set(gca,'Xtick',xtickplace);
         set(gca,'Xticklabel',samplenames);
@@ -23,7 +27,10 @@ else
     if exist('genenames','var')
         legend(genenames,'FontSize',16,'Location','NorthWest');
     end
+    
+    errorbar(h(1).XData+h(1).XOffset,fc,err,'kx','LineWidth',1.5);
 end
 
 ylabel('Fold Change','FontSize',20);
 set(gca,'FontSize',14);
+hold off;
